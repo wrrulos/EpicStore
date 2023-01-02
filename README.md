@@ -3,7 +3,7 @@
 <br/>
 <p align='center'> <img src='https://imgur.com/Qn18Yyf.jpg' title='EpicStore-Title'> </p>
 
-## Instalation
+# 🔧 Installation 
 
 ```bash
 # Install Python 3 (https://www.python.org/)
