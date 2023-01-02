@@ -18,3 +18,10 @@ $ cd MCPTool
 # Install dependencies 
 $ python3 -m pip install -r requirements.txt
 ```
+
+# Usage
+
+<h3> First you must enter the token in the configuration file (settings.json).
+
+Then just put python3 main.py in the terminal</h3>
+
