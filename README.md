@@ -15,4 +15,5 @@ $ git clone https://github.com/wrrulos/MCPTool
 $ cd MCPTool
 
 # Install dependencies 
-$ python3 -m pip install -r requirements.txt```
+$ python3 -m pip install -r requirements.txt
+```
