@@ -33,4 +33,4 @@ Then just put python3 main.py in the terminal</h3>
 
 <p> If the current value (name of the games) is different from the previous one, it sends an announcement to the channel specified by the user. </p>
 
-<img src='https://imgur.com/PRTfCjM.jpg' title'message'>
+<img src='https://imgur.com/PRTfCjM.jpg' title='message'>
