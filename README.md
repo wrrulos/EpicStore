@@ -27,6 +27,10 @@ Then just put python3 main.py in the terminal</h3>
 
 # How does it work?
 
-<p> First of all, it should be mentioned that every hour the bot sends a request to the Epic Games API to obtain the games that are free at that moment. Also, save the name of the games in the 'games' section of the data file of all servers</p>
+<p> First of all, it should be mentioned that every hour the bot sends a request to the Epic Games API to obtain the games that are free at that moment. Also, save the name of the games in the 'games' section of the data file of all servers. (The latter is done if the current value is different from the previous one)</p>
 
 <img src='https://imgur.com/RTeDXc0.jpg' title='games'>
+
+<p> If the current value (name of the games) is different from the previous one, it sends an announcement to the channel specified by the user. </p>
+
+<img src='https://imgur.com/PRTfCjM.jpg' title'message'>
