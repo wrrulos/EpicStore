@@ -27,5 +27,5 @@ Then just put python3 main.py in the terminal</h3>
 
 # How does it work?
 
-<p> First of all, it should be mentioned that every hour the bot sends a request to the Epic Games API to obtain the games that are free at that moment.</p>
+<p> First of all, it should be mentioned that every hour the bot sends a request to the Epic Games API to obtain the games that are free at that moment. Also, save the name of the games in the 'games' section of the data file of all servers</p>
 
