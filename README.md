@@ -25,3 +25,7 @@ $ python3 -m pip install -r requirements.txt
 
 Then just put python3 main.py in the terminal</h3>
 
+# How does it work?
+
+<p> First of all, it should be mentioned that every hour the bot sends a request to the Epic Games API to obtain the games that are free at that moment.</p>
+
