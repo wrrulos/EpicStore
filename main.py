@@ -10,7 +10,6 @@
 # Any error report it to my discord please, thank you. 
 # Programmed in Python 3.10.8
 
-import subprocess
 import requests
 import discord
 import asyncio
@@ -48,9 +47,7 @@ if not os.path.exists('data'):
 
 if not os.path.exists('data/servers'):
     os.mkdir('data/servers')
-
-subprocess.run('cls || clear', shell=True)
-
+    
 
 def save_server(server_id):
     """ Save the server folder and create the data.json file """
