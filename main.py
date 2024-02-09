@@ -27,25 +27,22 @@ try:
         prefix = settings['prefix']
 
 except FileNotFoundError:
-    data = {}
-    data['token'] = ''
-    data['prefix'] = 'epicstore!'
-
+    data = { 'token': '', 'prefix': 'epicstore!' }
     with open('settings.json', 'w') as f:
         json.dump(data, f, indent=4)
-    
+
 if token == '' or prefix == '':
     print('\n [#] Invalid configuration!')
     sys.exit()
 
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix=prefix, help_command=None, intents=intents)
-api = 'https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions?country=AR'
+api = 'https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions'
 
-if not os.path.exists('data'):
+if not os.path.isdir('data'):
     os.mkdir('data')
 
-if not os.path.exists('data/servers'):
+if not os.path.isdir('data/servers'):
     os.mkdir('data/servers')
     
 
@@ -60,11 +57,12 @@ def save_server(server_id):
     os.mkdir(server_folder)
 
     with open(server_file, 'w') as f:
-        data = {}
-        data['channel_id'] = ''
-        data['send_role'] = True
-        data['role_id'] = '@everyone'
-        data['games'] = []
+        data = {
+            'channel_id': '',
+            'send_role': True,
+            'role_id': '@everyone',
+            'games': [],
+        }
         json.dump(data, f, indent=4)
 
 
@@ -87,16 +85,13 @@ def get_games():
     r = requests.get(api)
     r_json = r.json()
     store_games = r_json['data']['Catalog']['searchStore']['elements']  # Games
-        
+
     for num, game in enumerate(store_games):
         num = str(num)
-        games[num] = []
-        games[num].append(game['title'])
-        games[num].append(game['description'])
-
+        games[num] = [game['title'], game['description']]
         if game['keyImages'][0]['type'] == 'VaultClosed':
             games[num].append(game['keyImages'][1]['url'])
-        
+
         else:
             games[num].append(game['keyImages'][0]['url'])
 
@@ -177,11 +172,8 @@ async def check_games():
     against previously obtained ones 
     """
     games = get_games()
-    game_names = []
-        
-    for num in range(len(games)):
-        game_names.append((games[str(num)][0]))
-
+    game_names = [games[str(num)][0] for num in range(len(games))]
+    
     for guild in client.guilds:
         with open(f'data/servers/{guild.id}/data.json', 'r') as f:
             data = json.loads(f.read())
@@ -227,7 +219,7 @@ async def set_channel(ctx, channel):
 async def set_channel_error(ctx, error):
     """ Catch command errors. In this case, the lack of arguments """
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send(f'You need to specify a channel!')
+        await ctx.send('You need to specify a channel!')
 
     if isinstance(error, commands.MissingPermissions):
         await ctx.send('You do not have permissions to use this command.')
@@ -240,7 +232,7 @@ async def set_role(ctx, role=None):
     server_id = str(ctx.guild.id)
 
     if role is not None:
-        if role == '@everyone' or role == '@here':
+        if role in ['@everyone', '@here']:
             save_data(server_id, 'role_id', role)
             await ctx.send(f'The role that the bot will use now is: {role}')
             return
@@ -282,16 +274,12 @@ async def view_settings(ctx):
     with open(f'data/servers/{server_id}/data.json') as f:
         data = json.loads(f.read())
 
-    if data['channel_id'] == '':
-        channel = 'None'
-
-    else:
-        channel = f'<#{data["channel_id"]}>'
-
+    channel = 'None' if data['channel_id'] == '' else f'<#{data["channel_id"]}>'
+    
     embed = discord.Embed(title='💸 EpicStore | Server Settings', color=0x014EFF, description=None)
-    embed.add_field(name=f'**Channel**', value=channel, inline=False)
-    embed.add_field(name=f'**Mention a Role**', value=data["send_role"], inline=False)
-    embed.add_field(name=f'**Role**', value=data["role_id"], inline=False)
+    embed.add_field(name='**Channel**', value=channel, inline=False)
+    embed.add_field(name='**Mention a Role**', value=data["send_role"], inline=False)
+    embed.add_field(name='**Role**', value=data["role_id"], inline=False)
     embed.set_footer(text='🔗 Made By @wrrulos')
     await ctx.send(embed=embed)
 
